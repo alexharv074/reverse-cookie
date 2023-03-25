@@ -36,8 +36,8 @@ get_opts() {
   while getopts ":hi:o:E:" opt ; do
     case $opt in
       h) usage ;;
-      i) source_repo="$OPTARG" ;;
-      o) dest_repo="$OPTARG" ;;
+      i) source_repo="$(cd "$(dirname "$OPTARG")"; pwd)/$(basename "$OPTARG")" ;;
+      o) dest_repo="$(cd "$(dirname "$OPTARG")"; pwd)/$(basename "$OPTARG")" ;;
       E) exclude_list+=("$OPTARG") ;;
       \?)
         echo "Invalid option: -$OPTARG" >&2
