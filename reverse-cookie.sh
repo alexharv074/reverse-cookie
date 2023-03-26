@@ -38,7 +38,7 @@ get_opts() {
       h) usage ;;
       i) source_repo="$(cd "$(dirname "$OPTARG")"; pwd)/$(basename "$OPTARG")" ;;
       o) dest_repo="$(cd "$(dirname "$OPTARG")"; pwd)/$(basename "$OPTARG")" ;;
-      E) exclude_list+=("$OPTARG") ;;
+      E) exclude_list+=(--exclude "$OPTARG") ;;
       \?)
         echo "Invalid option: -$OPTARG" >&2
         usage
@@ -113,7 +113,7 @@ create_repo() {
   mkdir -p "$module_dir"
 
   (cd "$module_dir" && \
-   rsync -av --progress "$source_repo" ./ ${exclude_list[*]})
+   rsync -av --progress "$source_repo"/ ./ ${exclude_list[*]})
 
   _readme             > "$dest_repo/README.md"
   _cookiecutter_json  > "$dest_repo/cookiecutter.json"
